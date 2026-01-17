@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model job {
+  id           Int           @id @default(autoincrement())
+  title        String
+  company      String
+  location     String
+  type         String
+  salary       String
+  description  String
+  isActive     Boolean
+  applications application[]
+}
+
+model application {
+  id     Int    @id @default(autoincrement())
+  jobId  Int
+  name   String
+  email  String
+  resume String
+  job    job    @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+/**
+ * {
+ * "id": 1,
+ * "jobId": 1,
+ * "name": "User 1",
+ * "email": "user1@email.com",
+ * "resume": "https://example.com/resumes/user1.pdf"
+ * },
+ * [
+ * {
+ * "id": 1,
+ * "title": "Frontend Developer",
+ * "company": "TechCorp",
+ * "location": "Austin, TX",
+ * "type": "Part-time",
+ * "salary": "$82k - $120k",
+ * "description": "We are looking for a Frontend Developer to join our team.",
+ * "isActive": false
+ * },
+ */

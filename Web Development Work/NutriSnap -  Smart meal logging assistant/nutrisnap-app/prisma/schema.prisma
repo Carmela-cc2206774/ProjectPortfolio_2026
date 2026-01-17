@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model meal {
+  id           Int    @id @default(autoincrement())
+  userId       Int
+  title        String
+  tags         String
+  calories     Int
+  description  String
+  satisfaction Int
+  date         String
+  image        String
+}
+
+// {"id":1,"userId":1,"title":"Grilled Chicken Salad","tags":["high-protein","lunch"],"calories":450,"description":"Grilled chicken breast with lettuce, cherry tomatoes, and light dressing.",
+// "satisfaction":4,"date":"2025-04-15T12:00:00Z","image":"https://www.maebells.com/wp-content/uploads/2024/06/Grilled-Chicken-Caesar-Salad-14.jpg"}
